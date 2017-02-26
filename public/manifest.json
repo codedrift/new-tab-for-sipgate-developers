@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "new-tab-for-sipgate-developers",
+  "description": "chrome new tab page for sipgate developers",
+  "version": "1.0",
+
+  "chrome_url_overrides" : {
+    "newtab": "index.html"
+  },
+  "permissions": [
+    "*://api.sipgate.com/*",
+    "*://api.dev.sipgate.com/*",
+    "*://api.local.sipgate.com/*",
+    "*://altepost.sipgate.net/*",
+    "storage",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "background": {
+    "scripts": ["extension-background-script.js"],
+    "persistent": true
+  }
+}
