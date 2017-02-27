@@ -8,3 +8,8 @@
 # Notes
 
 changes to the background scripts might not reload until the browser is restarted or the extension is reinstalled
+
+# What's next?
+
+Copy token to clipboard
+Open account in incognito tab
