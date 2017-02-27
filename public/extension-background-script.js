@@ -66,6 +66,9 @@ chrome.runtime.onConnect.addListener(function (port) {
 					port.postMessage(response);
 				});
 				break;
+			case 'OPEN_INCOGNITO_TAB':
+				chrome.windows.create({"url": message.content, "incognito": true});
+				break;
 		}
 	});
 });

@@ -6,6 +6,7 @@ import LoginCard from './LoginCard';
 import SgFoodCard from './SgFoodCard';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { chromeRuntime } from './chromehelper';
 import 'normalize.css';
 import './style/core.css';
 
@@ -71,15 +72,11 @@ class App extends Component {
 		this.setState({
 			accountSettings: settings,
 		});
-		this.getChromeRuntime().postMessage({
+		chromeRuntime().postMessage({
 			type: 'SIPGATE_TEST_ACCOUNT_SETTINGS_SAVE',
 			content: settings
 		});
 		this.handleCloseDialog();
-	};
-
-	getChromeRuntime = () => {
-		return chrome.runtime.connect(); // eslint-disable-line
 	};
 
 	handleEdit = (e) => {
@@ -94,12 +91,11 @@ class App extends Component {
 
 	componentDidMount() {
 		const _this = this;
-		let chromeRuntime = this.getChromeRuntime();
-		chromeRuntime.postMessage({
+		chromeRuntime().postMessage({
 			type: 'SIPGATE_TEST_ACCOUNT_SETTINGS_LOAD',
 			content: {}
 		});
-		chromeRuntime.onMessage.addListener(function (message) {
+		chromeRuntime().onMessage.addListener(function (message) {
 			console.log('runtime says:', message);
 			const accountSettings = message.SIPGATE_TEST_ACCOUNT_SETTINGS;
 			if (accountSettings !== null) {
