@@ -11,5 +11,5 @@ changes to the background scripts might not reload until the browser is restarte
 
 # What's next?
 
-Copy token to clipboard
-Open account in incognito tab
+* Copy token to clipboard
+* Open account in incognito tab
