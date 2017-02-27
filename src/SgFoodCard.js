@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
 import styled from 'styled-components';
 import ReactEmoji from 'react-emoji';
+import Card from './Card';
 
 const Title = styled.span`
 	font-size: 18px;
 	font-weight: bold;
 `;
 
-const ContainerTitle = styled.span`
-	font-size: 24px;
-	font-weight: 800;
-	opacity: 0.2;
+const Container = styled.div`
+	font-size: 18px;
+	opacity: 0.95;
+	padding: 10px 25px;
 `;
-
 
 const MealContainer = styled.div`
 	display: flex;
@@ -21,25 +20,15 @@ const MealContainer = styled.div`
 `;
 
 const MealType = styled.div`
-	font-size: 18px;
+	font-size: 20px;
 	padding: 5px;
 `;
 
 const MealName = styled.div`
-	font-size: 14px;
+	font-size: 16px;
 	padding: 5px;
 	vertical-align: middle;
 `;
-
-const style = {
-	cardStyle: {
-		opacity: '0.95',
-		width: '500px',
-		// minHeight: '300px',
-		margin: 10
-	}
-};
-
 
 class SgFood extends Component {
 
@@ -87,7 +76,7 @@ class SgFood extends Component {
 		const {response} = this.state;
 		if (response && response.meals) {
 			return (
-				<div>
+				<Container>
 					<Title>{`${response.day} (${response.date})`}</Title>
 					{
 						response.meals.map((meal) => {
@@ -99,15 +88,15 @@ class SgFood extends Component {
 							)
 						})
 					}
-				</div>
+				</Container>
 			)
 		} else {
 			return (
-				<div>
+				<Container>
 					{
 						'Probably something awesome!'
 					}
-				</div>
+				</Container>
 			)
 		}
 	};
@@ -115,15 +104,8 @@ class SgFood extends Component {
 	render() {
 
 		return (
-			<Card style={style.cardStyle}>
-				<CardHeader
-					title={<ContainerTitle>{'sipgate food'}</ContainerTitle>}
-					actAsExpander={false}
-					showExpandableButton={false}
-				/>
-				<CardText expandable={false}>
+			<Card title={'sipgate food'}>
 				{this.renderMeals()}
-				</CardText>
 			</Card>
 		)
 	}

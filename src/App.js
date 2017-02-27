@@ -84,7 +84,6 @@ class App extends Component {
 
 	handleEdit = (e) => {
 		/* eslint-disable */
-		// chrome.windows.create({"url": 'localhost:3000', "incognito": true});
 		this.setState({editDialogOpen: true})
 		/* eslint-enable */
 	};

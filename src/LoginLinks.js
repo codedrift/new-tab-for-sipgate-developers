@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const Link = styled.a`
 	text-decoration: none;
 	cursor: pointer;
-	text-transform: uppercase;
+	-webkit-transition:.3s;
+	transition:.3s;
 	&:hover {
 		font-weight: bold;
 	}
@@ -13,26 +14,27 @@ const Link = styled.a`
 	}
 `;
 
-
 const LinksCategoryTitle = styled.span`
 	font-size: 18px;
+	padding: 10px 25px 5px 25px;
 	font-weight: bold;
 `;
 
 const LoginList = styled.div`
 	list-style: none;
-	display: flex;
-	flex-direction: column;
-	margin: 5px 10px;
 `;
 
-
 const LoginListElement = styled.div`
-	font-size: 14px;
-	margin: 2px 0;
-	padding: 5px;
+	font-size: 16px;
+	margin-bottom: 5px;
+	padding: 2px 30px;
 	display: flex;
 	flex-direction: column;
+	-webkit-transition:.3s;
+	transition:.3s;
+	&:hover {
+		background-color: rgba(255,255,255, 0.2);
+	}
 `;
 
 class LoginLinks extends Component {
@@ -84,17 +86,16 @@ class LoginLinks extends Component {
 					return (
 						<div key={key}>
 							<LinksCategoryTitle key={key + 'header'}>{key}</LinksCategoryTitle>
-							<LoginListElement key={link}>
-								{
-									accounts[key].map((account) => {
-										return (
-											<Link key={account.username} onClick={() => this.handleLogin(link, envs[key], account)}>
+
+								{accounts[key].map((account) => {
+									return (
+										<LoginListElement key={account.username}>
+											<Link onClick={() => this.handleLogin(link, envs[key], account)}>
 												{account.username}
 											</Link>
-										)
-									})
-								}
-							</LoginListElement>
+										</LoginListElement>
+									)
+								})}
 						</div>
 					)
 				})}

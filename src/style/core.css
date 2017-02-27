@@ -15,8 +15,8 @@ body {
 	display: block;
 	width: 100vw;
 	height: 100vh;
-	filter: blur(2px);
-	-webkit-filter: blur(2px);
+	filter: blur(1px);
+	-webkit-filter: blur(1px);
 	background-size: cover;
 	background: url("https://www.sipgate.de/assets/images/wir-sind-sipgate/nacht-der-museen.jpg") no-repeat;
 }
