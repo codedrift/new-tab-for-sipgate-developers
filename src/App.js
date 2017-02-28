@@ -91,11 +91,12 @@ class App extends Component {
 
 	componentDidMount() {
 		const _this = this;
-		chromeRuntime().postMessage({
+		const runtime = chromeRuntime();
+		runtime.postMessage({
 			type: 'SIPGATE_TEST_ACCOUNT_SETTINGS_LOAD',
 			content: {}
 		});
-		chromeRuntime().onMessage.addListener(function (message) {
+		runtime.onMessage.addListener(function (message) {
 			console.log('runtime says:', message);
 			const accountSettings = message.SIPGATE_TEST_ACCOUNT_SETTINGS;
 			if (accountSettings !== null) {
