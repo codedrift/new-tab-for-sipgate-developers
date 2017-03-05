@@ -1,51 +1,47 @@
-chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
-		const headers = details.requestHeaders;
-		const url = details.url;
+const webRequestUrlFilters = {
+	urls: [
+		"*://api.sipgate.com/*",
+		"*://api.dev.sipgate.com/*",
+		"*://api.local.sipgate.com/*",
+		"*://altepost.sipgate.net/*"
+	]
+};
 
-		console.log(details.url);
+const setSipgateOriginHeader = (headers) => {
+	let newOrigin = null;
 
-		const tokenUrl = "login/sipgate-apps/protocol/openid-connect/token";
-		if (url.indexOf(tokenUrl) !== -1) {
-			for (let i = 0, l = headers.length; i < l; ++i) {
-				if (headers[i].name == 'Origin') {
-					headers[i].value = 'https://login.sipgate.com';
-				}
+	for (let i = 0; i < headers.length; ++i) {
+		if (headers[i].name.match(/^new-origin-header$/i)) {
+			newOrigin = headers[i].value;
+			break;
+		}
+	}
+
+	if(newOrigin) {
+		for (let i = 0; i < headers.length; ++i) {
+			if (headers[i].name.match(/^origin$/i)) {
+				headers[i].value = newOrigin;
+				break;
 			}
 		}
+	}
 
-		const altePostUrl = 'altepost.sipgate.net';
-		if (url.indexOf(altePostUrl) !== -1) {
-			for (let i = 0, l = headers.length; i < l; ++i) {
-				if (headers[i].name == 'Origin') {
-					headers[i].value = 'http://altepost.sipgate.net';
-				}
-			}
-		}
+	return headers;
+}
 
-		return {requestHeaders: headers};
+chrome.webRequest.onBeforeSendHeaders.addListener(
+	(details) => {
+		const headers = setSipgateOriginHeader(details.requestHeaders);
+		return { requestHeaders: headers };
 	},
-	{
-		urls: [
-			"*://api.sipgate.com/*",
-			"*://api.dev.sipgate.com/*",
-			"*://api.local.sipgate.com/*",
-			"*://altepost.sipgate.net/*"
-		]
-	},
+	webRequestUrlFilters,
 	['requestHeaders', 'blocking']
 );
 
-chrome.webRequest.onErrorOccurred.addListener(function (details) {
-		console.log(details)
-	},
-	{
-		urls: [
-			"*://api.sipgate.com/*",
-			"*://api.dev.sipgate.com/*",
-			"*://api.local.sipgate.com/*"
-		]
-	});
-
+chrome.webRequest.onErrorOccurred.addListener(
+	(details) => console.log(details),
+	webRequestUrlFilters
+);
 
 chrome.runtime.onConnect.addListener(function (port) {
 	port.onMessage.addListener(function (message) {
@@ -53,12 +49,12 @@ chrome.runtime.onConnect.addListener(function (port) {
 		switch (message.type) {
 			case 'SIPGATE_TEST_ACCOUNT_SETTINGS_SAVE':
 				const pref = {'SIPGATE_TEST_ACCOUNT_SETTINGS': message.content};
-				chrome.storage.local.set(pref, function () {
+				chrome.storage.sync.set(pref, function () {
 					console.log('saved', pref)
 				});
 				break;
 			case 'SIPGATE_TEST_ACCOUNT_SETTINGS_LOAD':
-				chrome.storage.local.get('SIPGATE_TEST_ACCOUNT_SETTINGS', function (result) {
+				chrome.storage.sync.get('SIPGATE_TEST_ACCOUNT_SETTINGS', function (result) {
 					const response = Object.keys(result).length === 0 && result.constructor === Object
 						? null
 						: result;
@@ -67,7 +63,10 @@ chrome.runtime.onConnect.addListener(function (port) {
 				});
 				break;
 			case 'OPEN_INCOGNITO_TAB':
-				chrome.windows.create({"url": message.content, "incognito": true});
+				chrome.windows.create({
+					"url": message.content,
+					"incognito": true
+				});
 				break;
 		}
 	});

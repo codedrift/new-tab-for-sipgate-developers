@@ -81,24 +81,24 @@ class LoginLinks extends Component {
 
 	getToken = (link, env, account, onSuccess) => {
 		const theEnv = env.name.match(/dev|local/) ? '.dev' : '';
+		const host = `https://api${theEnv}.sipgate.com`;
 
-		let myHeaders = new Headers();
-
-		myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		headers.append('New-Origin-Header', host);
 
 		const reqData = `username=${encodeURIComponent(account.username)}&password=${account.password}&client_id=sipgate-app-web&grant_type=password`;
-		console.log(reqData);
-		const apiUrl = `https://api${theEnv}.sipgate.com/login/sipgate-apps/protocol/openid-connect/token`;
+		const apiUrl = `${host}/login/sipgate-apps/protocol/openid-connect/token`;
+
 		fetch(apiUrl, {
 			method: 'POST',
-			headers: myHeaders,
+			headers: headers,
 			body: reqData
 		})
 			.then((response) => { console.log(response); return response.json()})
 			.then(function(json) {
 				console.log('token data',json);
 				const redirect = link + '/authenticate?token='+ json.access_token;
-				console.log('redirect to', redirect);
 				onSuccess(json.access_token, redirect)
 
 			})

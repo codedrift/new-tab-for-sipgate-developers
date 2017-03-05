@@ -43,16 +43,21 @@ class SgFood extends Component {
 
 	getSgFood = () => {
 		const _this = this;
-		fetch('http://altepost.sipgate.net/api.php', {
+		const host = 'http://altepost.sipgate.net';
+
+		let headers = new Headers();
+		headers.append('New-Origin-Header', host);
+
+		fetch(`${host}/api.php`, {
 			method: 'GET',
+			headers: headers,
 		})
 			.then((response) => response.json())
 			.then(function (json) {
-				console.log('sipgate food', json);
 				_this.setState({response: json, fetched: true});
 			})
 			.catch((e) => {
-				_this.setState({fetched: true});
+				_this.setState({ fetched: true });
 				console.log("sipgate food failed", e);
 			});
 	};
@@ -74,31 +79,29 @@ class SgFood extends Component {
 
 	renderMeals = () => {
 		const {response} = this.state;
-		if (response && response.meals) {
-			return (
-				<Container>
-					<Title>{`${response.day} (${response.date})`}</Title>
-					{
-						response.meals.map((meal) => {
-							return (
-								<MealContainer>
-									<MealType>{ReactEmoji.emojify(this.getEmojiByType(meal.type))}</MealType>
-									<MealName>{meal.name}</MealName>
-								</MealContainer>
-							)
-						})
-					}
-				</Container>
-			)
-		} else {
-			return (
-				<Container>
-					{
-						'Probably something awesome!'
-					}
-				</Container>
-			)
-		}
+		return (response && response.meals)
+		? (
+			<Container>
+				<Title>{`${response.day} (${response.date})`}</Title>
+				{
+					response.meals.map((meal) => {
+						return (
+							<MealContainer>
+								<MealType>{ReactEmoji.emojify(this.getEmojiByType(meal.type))}</MealType>
+								<MealName>{meal.name}</MealName>
+							</MealContainer>
+						)
+					})
+				}
+			</Container>
+		)
+		: (
+			<Container>
+				{
+					'Probably something awesome!'
+				}
+			</Container>
+		)
 	};
 
 	render() {
