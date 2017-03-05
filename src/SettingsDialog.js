@@ -37,7 +37,7 @@ class SettingsDialog extends React.Component {
 	render () {
 		return (
 			<Dialog
-				title={'Edit sipgate accounts'}
+				title={'sipgate accounts'}
 				actions={[<FlatButton
 					label="Save"
 					primary={true}

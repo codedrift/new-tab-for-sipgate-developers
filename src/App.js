@@ -143,7 +143,7 @@ class App extends Component {
 						<SgFoodCard />
 					</MainContainer>
 					<FooterContainer>
-						<FlatButton label="Accounts" labelStyle={{color: 'white'}} primary={true} onClick={this.handleEdit}/>
+						<FlatButton label="Settings" labelStyle={{color: 'white'}} primary={true} onClick={this.handleEdit}/>
 					</FooterContainer>
 					<SettingsDialog
 						open={this.state.editDialogOpen}
