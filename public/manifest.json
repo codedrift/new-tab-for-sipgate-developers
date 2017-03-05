@@ -3,7 +3,7 @@
 
   "name": "new-tab-for-sipgate-developers",
   "description": "chrome new tab page for sipgate developers",
-  "version": "1.0",
+  "version": "1.1",
 
   "chrome_url_overrides" : {
     "newtab": "index.html"
