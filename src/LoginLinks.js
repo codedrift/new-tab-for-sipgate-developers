@@ -98,7 +98,7 @@ class LoginLinks extends Component {
 			.then((response) => { console.log(response); return response.json()})
 			.then(function(json) {
 				console.log('token data',json);
-				const redirect = link + '/authenticate?token='+ json.access_token;
+				const redirect = link + `/authenticate?token=${json.access_token}&refresh_token=${json.refresh_token}`;
 				onSuccess(json.access_token, redirect)
 
 			})
