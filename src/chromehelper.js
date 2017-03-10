@@ -1,6 +1,14 @@
 
 export const chromeRuntime = () => {
-	return chrome.runtime.connect(); // eslint-disable-line
-}
+	let runtime = null;
+
+	try {
+		runtime = chrome.runtime.connect(); // eslint-disable-line
+	} catch (e) {
+
+	}
+
+	return runtime;
+};
 
 export default chromeRuntime;
