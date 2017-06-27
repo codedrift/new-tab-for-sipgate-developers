@@ -6,18 +6,21 @@
     "react-scripts": "0.9.0"
   },
   "dependencies": {
+    "crx": "^3.2.1",
     "material-ui": "^0.17.0",
     "normalize.css": "^5.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-emoji": "^0.4.4",
     "react-tap-event-plugin": "^2.0.1",
-    "styled-components": "^1.4.3"
+    "styled-components": "^1.4.3",
+    "swagger-ui-dist": "^3.0.17"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:webstore": "crx pack dist -o ext/new-tab-for-sipgate-developers.crx --zip-output ext/new-tab-for-sipgate-developers.zip -p ../new-tab-for-sipgate-developers.pem"
   }
 }

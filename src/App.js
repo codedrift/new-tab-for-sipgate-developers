@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import SettingsDialog from './SettingsDialog';
 import LoginCard from './LoginCard';
 import SgFoodCard from './SgFoodCard';
+import SwaggerCard from './SwaggerCard';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { chromeRuntime } from './chromehelper';
@@ -141,6 +142,7 @@ class App extends Component {
 							}}
 						/>
 						<SgFoodCard />
+						<SwaggerCard />
 					</MainContainer>
 					<FooterContainer>
 						<FlatButton label="Settings" labelStyle={{color: 'white'}} primary={true} onClick={this.handleEdit}/>
