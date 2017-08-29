@@ -135,9 +135,9 @@ class App extends Component {
 								live: {name: '', port: ''}
 							}}
 							accounts={{
-								local: [...dev.basic, ...dev.team],
-								dev: [...dev.basic, ...dev.team],
-								live: [...live.basic, ...live.team],
+								local: [...dev.basic, ...dev.team, ...dev.simquadrat],
+								dev: [...dev.basic, ...dev.team, ...dev.simquadrat],
+								live: [...live.basic, ...live.team, ...live.simquadrat],
 							}}
 						/>
 						<SgFoodCard />
