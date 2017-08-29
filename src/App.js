@@ -35,18 +35,22 @@ const defaultAccountSetup = {
 		basic: [
 			{username: 'foo-basic@bar.de', password: 'foobar'}
 		],
-		simquadrat: [],
 		team: [
 			{username: 'foo-team@bar.de', password: 'foobar'}
+		],
+		simquadrat: [
+			{username: 'foo-simquadrat@bar.de', password: 'foobar'}
 		],
 	},
 	live: {
 		basic: [
 			{username: 'foo-basic@bar.de', password: 'foobar'}
 		],
-		simquadrat: [],
 		team: [
 			{username: 'foo-team@bar.de', password: 'foobar'}
+		],
+		simquadrat: [
+			{username: 'foo-simquadrat@bar.de', password: 'foobar'}
 		],
 	}
 };
